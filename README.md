@@ -34,6 +34,15 @@ assert.equal(set3.isSubsetOf(set1), true);
 ## Tests
 Simply clone the repo, `npm install`, and run `npm test`
 
+## Set Method Packages
+ - [union](https://npmjs.com/set.prototype.union)
+ - [intersection](https://npmjs.com/set.prototype.intersection)
+ - [difference](https://npmjs.com/set.prototype.difference)
+ - [symmetricDifference](https://npmjs.com/set.prototype.symmetricdifference)
+ - [isSubsetOf](https://npmjs.com/set.prototype.issubsetof)
+ - [isSupersetOf](https://npmjs.com/set.prototype.issupersetof)
+ - [isDisjointFrom](https://npmjs.com/set.prototype.isdisjointfrom)
+
 [package-url]: https://npmjs.com/package/set.prototype.issubsetof
 [npm-version-svg]: http://versionbadg.es/es-shims/Set.prototype.isSubsetOf.svg
 [deps-svg]: https://david-dm.org/es-shims/Set.prototype.isSubsetOf.svg
