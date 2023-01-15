@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.0.1](https://github.com/es-shims/Set.prototype.isSubsetOf/compare/v1.0.0...v1.0.1) - 2023-01-14
+
+### Commits
+
+- [Fix] properly handle StopIteration envs, like FF 42 [`ca8c496`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/ca8c496cb81641e949fcd2ca9c1555d6a37aeac4)
+- [readme] link to all set method packages [`9be5cf8`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/9be5cf8b1900fa37dd35dd87796409793ec86879)
+- [Deps] update `es-abstract`, `es-set` [`01b188a`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/01b188a40ad8065a16f0bd03133aeadf2e89198d)
+- [Dev Deps] update `@ljharb/eslint-config`, `object-inspect` [`02fca02`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/02fca020323133477b0487fd8aadce678a630bcb)
+- [Deps] update `es-abstract`, `es-set` [`eb0e34f`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/eb0e34f67586516bc0d77ae488e270b050473aea)
+- [Dev Deps] update `aud`, `es6-shim` [`552172b`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/552172bb16fe34f9f5da50254c64516b5696b7e2)
+
 ## v1.0.0 - 2022-12-05
 
 ### Commits
