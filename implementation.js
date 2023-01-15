@@ -6,28 +6,16 @@ var $TypeError = GetIntrinsic('%TypeError%');
 
 var $Set = require('es-set/polyfill')();
 
-var isNativeSet = typeof Set === 'function' && $Set === Set;
-
 var Call = require('es-abstract/2022/Call');
 var ToBoolean = require('es-abstract/2022/ToBoolean');
-
-var gOPD = require('es-abstract/helpers/getOwnPropertyDescriptor');
 
 var GetSetRecord = require('./aos/GetSetRecord');
 
 var isSet = require('is-set');
 
-var callBind = isNativeSet || require('call-bind'); // eslint-disable-line global-require
-var callBound = isNativeSet && require('call-bind/callBound'); // eslint-disable-line global-require
-
-var $setForEach = isNativeSet ? callBound('Set.prototype.forEach') : callBind($Set.prototype.forEach);
-var $setSize = isNativeSet ? callBound('Set.prototype.size') : gOPD ? callBind(gOPD($Set.prototype, 'size').get) : function setSize(set) {
-	var count = 0;
-	$setForEach(set, function () {
-		count += 1;
-	});
-	return count;
-};
+var tools = require('es-set/tools');
+var $setForEach = tools.forEach;
+var $setSize = tools.size;
 
 module.exports = function isSubsetOf(other) {
 	var O = this; // step 1
