@@ -6,10 +6,9 @@ var $TypeError = GetIntrinsic('%TypeError%');
 
 var $Set = require('es-set/polyfill')();
 
-var Call = require('es-abstract/2022/Call');
-var ToBoolean = require('es-abstract/2022/ToBoolean');
-
+var Call = require('es-abstract/2023/Call');
 var GetSetRecord = require('./aos/GetSetRecord');
+var ToBoolean = require('es-abstract/2023/ToBoolean');
 
 var isSet = require('is-set');
 
