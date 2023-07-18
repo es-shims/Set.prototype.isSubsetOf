@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.0](https://github.com/es-shims/Set.prototype.isSubsetOf/compare/v1.0.1...v1.1.0) - 2023-07-18
+
+### Commits
+
+- [Tests] remove unused shimmed tests [`93a2e69`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/93a2e6914088777ac2d5cacee5ae8ed2a739c717)
+- [Deps] update `define-properties`, `es-abstract`, `get-intrinsic` [`98212d4`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/98212d43598fb61d75b6b153487da2b8b14e5446)
+- [patch] throw on negative set sizes [`71a86f0`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/71a86f08138720405674635da2c69baa65ba81a0)
+- [Dev Deps] update `@es-shims/api`, `@ljharb/eslint-config`, `aud`, `es6-shim`, `tape` [`4de4433`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/4de44331e8737a0aa11dfdeb5d034a102a0d5fd8)
+
 ## [v1.0.1](https://github.com/es-shims/Set.prototype.isSubsetOf/compare/v1.0.0...v1.0.1) - 2023-01-14
 
 ### Commits
