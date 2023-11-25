@@ -4,6 +4,7 @@ var $Set = require('es-set/polyfill')();
 var forEach = require('for-each');
 var v = require('es-value-fixtures');
 var debug = require('object-inspect');
+var hasPropertyDescriptors = require('has-property-descriptors')();
 
 module.exports = function (isSubsetOf, t) {
 	t.test('throws on non-set receivers', function (st) {
@@ -77,6 +78,66 @@ module.exports = function (isSubsetOf, t) {
 
 			s2t.end();
 		});
+
+		st.end();
+	});
+
+	t.test('test262: setlike with equal size', function (st) {
+		var setLike = {
+			arr: [42, 44, 45],
+			size: 3,
+			keys: function () {
+				return this.arr[Symbol.iterator]();
+			},
+			has: function (key) {
+				return this.arr.indexOf(key) !== -1;
+			}
+		};
+
+		var firstSet = new $Set([42, 43, 45]);
+
+		st.equal(isSubsetOf(firstSet, setLike), false);
+
+		st.end();
+	});
+
+	t.test('test262: set method receiver is cleared', { skip: !hasPropertyDescriptors }, function (st) {
+		var firstSet = new $Set([42, 43]);
+
+		var otherSet = new $Set([42, 43, 47]);
+
+		Object.defineProperty(otherSet, 'size', {
+			get: function () {
+				firstSet.clear();
+				return 3;
+			}
+		});
+
+		st.equal(isSubsetOf(firstSet, otherSet), true);
+
+		st.end();
+	});
+
+	t.test('test262: set method after table transition in receiver', function (st) {
+		var firstSet = new Set([42, 43, 44]);
+
+		var setLike = {
+			size: 5,
+			keys: function () {
+				return [1, 2, 3, 4, 5].keys();
+			},
+			has: function (key) {
+				if (key === 42) {
+					// Cause a table transition in the receiver.
+					firstSet.clear();
+				}
+				// Return true so we keep iterating the transitioned receiver.
+				return true;
+			}
+		};
+
+		st.equal(firstSet.isSubsetOf(setLike), true);
+		st.equal(firstSet.size, 0);
 
 		st.end();
 	});
