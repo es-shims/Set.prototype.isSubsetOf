@@ -136,8 +136,24 @@ module.exports = function (isSubsetOf, t) {
 			}
 		};
 
-		st.equal(firstSet.isSubsetOf(setLike), true);
+		st.equal(isSubsetOf(firstSet, setLike), true);
 		st.equal(firstSet.size, 0);
+
+		st.end();
+	});
+
+	t.test('evil setlike', function (st) {
+		var x = new $Set('a', 'b');
+		var evil = {
+			size: 3,
+			has: function () {
+				x['delete']('b');
+				x.add('c');
+				return true;
+			},
+			keys: function () { return [].keys(); }
+		};
+		st.ok(isSubsetOf(x, evil), 'x is a subset of evil setlike');
 
 		st.end();
 	});
@@ -167,6 +183,24 @@ module.exports = function (isSubsetOf, t) {
 			true,
 			debug(set2) + ' is a subset of ' + debug(set3)
 		);
+
+		st.end();
+	});
+
+	t.test('test262 - set is subset of empty index', function (st) {
+		var firstSet = new $Set('a', 'b');
+		var secondSet = {
+			size: 3,
+			has: function () {
+				firstSet['delete']('b');
+				firstSet.add('c');
+				return true;
+			},
+			keys: function () {
+				return { next: function () { return { done: true }; } };
+			}
+		};
+		st.equal(isSubsetOf(firstSet, secondSet), true);
 
 		st.end();
 	});
