@@ -5,10 +5,11 @@ var forEach = require('for-each');
 var v = require('es-value-fixtures');
 var debug = require('object-inspect');
 var hasPropertyDescriptors = require('has-property-descriptors')();
+var $Map = require('es-map/polyfill')();
 
 module.exports = function (isSubsetOf, t) {
 	t.test('throws on non-set receivers', function (st) {
-		forEach(v.primitives.concat(v.objects), function (nonSet) {
+		forEach(v.primitives.concat(v.objects, [], new $Map()), function (nonSet) {
 			st['throws'](
 				function () { isSubsetOf(nonSet, {}); },
 				TypeError,
@@ -187,7 +188,7 @@ module.exports = function (isSubsetOf, t) {
 		st.end();
 	});
 
-	t.test('test262 - set is subset of empty index', function (st) {
+	t.test('test262: set is subset of empty index', function (st) {
 		var firstSet = new $Set('a', 'b');
 		var secondSet = {
 			size: 3,
@@ -201,6 +202,175 @@ module.exports = function (isSubsetOf, t) {
 			}
 		};
 		st.equal(isSubsetOf(firstSet, secondSet), true);
+
+		st.end();
+	});
+
+	t.test('test262: test/built-ins/Set/prototype/isSubsetOf/allows-set-like-object', function (st) {
+		var s1 = new $Set([1, 2]);
+		var s2 = {
+			size: 2,
+			has: function (x) {
+				if (x === 1) { return false; }
+				if (x === 2) { return true; }
+				throw new EvalError("Set.prototype.isSubsetOf should only call its argument's has method with contents of this");
+			},
+			keys: function () {
+				throw new EvalError("Set.prototype.isSubsetOf should not call its argument's keys iterator");
+			}
+		};
+
+		st.equal(isSubsetOf(s1, s2), false);
+
+		st.end();
+	});
+
+	t.test('test262: test/built-ins/Set/prototype/isSubsetOf/compares-Map', function (st) {
+		var s1 = new $Set([1, 2]);
+		var m1 = new $Map([
+			[2, 'two'],
+			[3, 'three']
+		]);
+
+		st.equal(isSubsetOf(s1, m1), false);
+
+		st.end();
+	});
+
+	t.test('test262: test/built-ins/Set/prototype/isSubsetOf/compares-empty-sets', function (st) {
+		var s1 = new $Set([]);
+		var s2 = new $Set([1, 2]);
+
+		st.equal(isSubsetOf(s1, s2), true);
+
+		var s3 = new $Set([1, 2]);
+		var s4 = new $Set([]);
+
+		st.equal(isSubsetOf(s3, s4), false);
+
+		var s5 = new $Set([]);
+		var s6 = new $Set([]);
+
+		st.equal(isSubsetOf(s5, s6), true);
+
+		st.end();
+	});
+
+	t.test('test262: test/built-ins/Set/prototype/isSubsetOf/compares-itself', function (st) {
+		var s1 = new $Set([1, 2]);
+
+		st.equal(isSubsetOf(s1, s1), true);
+
+		st.end();
+	});
+
+	t.test('test262: test/built-ins/Set/prototype/isSubsetOf/compares-same-sets', function (st) {
+		var s1 = new $Set([1, 2]);
+		var s2 = new $Set([1, 2]);
+
+		st.equal(isSubsetOf(s1, s2), true);
+
+		st.end();
+	});
+
+	t.test('test262: test/built-ins/Set/prototype/isSubsetOf/has-is-callable', function (st) {
+		var s1 = new $Set([1, 2]);
+		var s2 = {
+			size: 2,
+			has: undefined,
+			keys: function () {
+				return [2, 3];
+			}
+		};
+		st['throws'](
+			function () { isSubsetOf(s1, s2); },
+			TypeError,
+			'GetSetRecord throws an error when has is undefined'
+		);
+
+		s2.has = {};
+		st['throws'](
+			function () { isSubsetOf(s1, s2); },
+			TypeError,
+			'GetSetRecord throws an error when has is not callable'
+		);
+
+		st.end();
+	});
+
+	t.test('test262: test/built-ins/Set/prototype/isSubsetOf/keys-is-callable', function (st) {
+		var s1 = new $Set([1, 2]);
+		var s2 = {
+			size: 2,
+			has: function () {},
+			keys: undefined
+		};
+		st['throws'](
+			function () { isSubsetOf(s1, s2); },
+			TypeError,
+			'GetSetRecord throws an error when keys is undefined'
+		);
+
+		s2.keys = {};
+		st['throws'](
+			function () { isSubsetOf(s1, s2); },
+			TypeError,
+			'GetSetRecord throws an error when keys is not callable'
+		);
+
+		st.end();
+	});
+
+	t.test('test262: test/built-ins/Set/prototype/isSubsetOf/set-like-array', function (st) {
+		var s1 = new $Set([1, 2]);
+		var s2 = [5, 6];
+		s2.size = 3;
+		s2.has = function (x) {
+			if (x === 1) { return true; }
+			if (x === 2) { return true; }
+			throw new EvalError("Set.prototype.isSubsetOf should only call its argument's has method with contents of this");
+		};
+		s2.keys = function () {
+			throw new EvalError("Set.prototype.isSubsetOf should not call its argument's keys iterator when this.size ≤ arg.size");
+		};
+
+		st.equal(isSubsetOf(s1, s2), true);
+
+		st.end();
+	});
+
+	t.test('test262: test/built-ins/Set/prototype/isSubsetOf/size-is-a-number', function (st) {
+		var s1 = new $Set([1, 2]);
+		var s2 = {
+			size: undefined,
+			has: function () {},
+			keys: function () {
+				return [2, 3];
+			}
+		};
+
+		forEach([undefined, NaN, 'string'].concat(v.bigints), function (size) {
+			s2.size = size;
+			st['throws'](
+				function () { isSubsetOf(s1, s2); },
+				TypeError,
+				'GetSetRecord throws an error when size is ' + debug(size)
+			);
+		});
+
+		var coercionCalls = 0;
+		s2.size = {
+			valueOf: function () {
+				coercionCalls += 1;
+				return NaN;
+			}
+		};
+		st['throws'](
+			function () { isSubsetOf(s1, s2); },
+			TypeError,
+			'GetSetRecord throws an error when size coerces to NaN'
+		);
+		st.equal(coercionCalls, 1, 'GetSetRecord coerces size');
 
 		st.end();
 	});
