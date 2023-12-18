@@ -6,6 +6,7 @@ var v = require('es-value-fixtures');
 var debug = require('object-inspect');
 var hasPropertyDescriptors = require('has-property-descriptors')();
 var $Map = require('es-map/polyfill')();
+var getIterator = require('es-get-iterator');
 
 module.exports = function (isSubsetOf, t) {
 	t.test('throws on non-set receivers', function (st) {
@@ -88,7 +89,7 @@ module.exports = function (isSubsetOf, t) {
 			arr: [42, 44, 45],
 			size: 3,
 			keys: function () {
-				return this.arr[Symbol.iterator]();
+				return getIterator(this.arr);
 			},
 			has: function (key) {
 				return this.arr.indexOf(key) !== -1;
@@ -125,7 +126,7 @@ module.exports = function (isSubsetOf, t) {
 		var setLike = {
 			size: 5,
 			keys: function () {
-				return [1, 2, 3, 4, 5].keys();
+				return getIterator([0, 1, 2, 3, 4]);
 			},
 			has: function (key) {
 				if (key === 42) {
@@ -152,7 +153,7 @@ module.exports = function (isSubsetOf, t) {
 				x.add('c');
 				return true;
 			},
-			keys: function () { return [].keys(); }
+			keys: function () { return getIterator([]); }
 		};
 		st.ok(isSubsetOf(x, evil), 'x is a subset of evil setlike');
 
@@ -279,7 +280,7 @@ module.exports = function (isSubsetOf, t) {
 			size: 2,
 			has: undefined,
 			keys: function () {
-				return [2, 3];
+				return getIterator([2, 3]);
 			}
 		};
 		st['throws'](
@@ -345,7 +346,7 @@ module.exports = function (isSubsetOf, t) {
 			size: undefined,
 			has: function () {},
 			keys: function () {
-				return [2, 3];
+				return getIterator([2, 3]);
 			}
 		};
 
