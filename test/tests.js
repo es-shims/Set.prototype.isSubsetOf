@@ -377,5 +377,30 @@ module.exports = function (isSubsetOf, t) {
 
 	t.equal(isSubsetOf(new $Set([0]), new $Set([-0])), true, 'Set(0) is a subset of Set(-0)');
 
+	t.test('test262: test/built-ins/Set/prototype/isSubsetOf/set-like-class-mutation', function (st) {
+		var baseSet = new $Set(['a', 'b', 'c']);
+
+		var evilSetLike = {
+			size: 3,
+			has: function (x) {
+				if (x === 'a') {
+					baseSet['delete']('c');
+				}
+				return x === 'x' || x === 'a' || x === 'b';
+			},
+			keys: function () {
+				throw new EvalError('Set.prototype.isSubsetOf should not call its argument’s keys iterator');
+			}
+		};
+
+		var result = isSubsetOf(baseSet, evilSetLike);
+		st.equal(result, true);
+
+		var expectedNewBase = new $Set(['a', 'b']);
+		st.deepEqual(baseSet, expectedNewBase);
+
+		st.end();
+	});
+
 	return t.comment('tests completed');
 };
