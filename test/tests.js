@@ -375,5 +375,7 @@ module.exports = function (isSubsetOf, t) {
 		st.end();
 	});
 
+	t.equal(isSubsetOf(new $Set([0]), new $Set([-0])), true, 'Set(0) is a subset of Set(-0)');
+
 	return t.comment('tests completed');
 };
