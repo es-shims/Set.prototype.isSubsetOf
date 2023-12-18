@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.1](https://github.com/es-shims/Set.prototype.isSubsetOf/compare/v1.1.0...v1.1.1) - 2023-12-18
+
+### Commits
+
+- [Tests] increase coverage [`b96162b`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/b96162b841bf076936559315f09394ddd7382037)
+- [Tests] add coverage [`d344bb0`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/d344bb0705f74016a584e54812fc420780a9317f)
+- [Tests] improve coverage [`6e60d6e`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/6e60d6ebc600a5c069f7d2740a17c1d586d8cfca)
+- [Tests] increase coverage [`21b0b76`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/21b0b76a5e0fc1894f7a7413daa3e5725f52c400)
+- [Refactor] more closely match the spec [`0a5937f`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/0a5937f2bf71caa9630b12180c3d85951450c09f)
+- [Deps] update `call-bind`, `define-properties`, `es-abstract`, `es-set`, `get-intrinsic` [`e70f8f0`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/e70f8f0fec973866d75f2bea66fc1df2c8c3d7d2)
+- [Dev Deps] update `aud`, `npmignore` [`a826681`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/a8266814db4dbc92b1f8179e221aa80fb043e687)
+- [Dev Deps] update `object-inspect`, `tape` [`56617c7`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/56617c71e4d91d67f976c624831ef69c23b5a471)
+- [Tests] increase coverage [`c4bc977`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/c4bc9772b3bbc112d103da32b08129bf1683ad4f)
+
 ## [v1.1.0](https://github.com/es-shims/Set.prototype.isSubsetOf/compare/v1.0.1...v1.1.0) - 2023-07-18
 
 ### Commits
