@@ -8,7 +8,6 @@
 		"new-cap": [2, {
 			"capIsNewExceptions": [
 				"RequireObjectCoercible",
-				"GetIntrinsic",
 				"GetSetRecord",
 				"ToBoolean",
 
