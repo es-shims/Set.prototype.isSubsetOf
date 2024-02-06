@@ -9,6 +9,7 @@
 			"capIsNewExceptions": [
 				"RequireObjectCoercible",
 				"GetSetRecord",
+				"SetDataSize",
 				"ToBoolean",
 
 				// GetSetRecord
