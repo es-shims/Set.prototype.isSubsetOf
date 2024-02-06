@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.2](https://github.com/es-shims/Set.prototype.isSubsetOf/compare/v1.1.1...v1.1.2) - 2024-02-05
+
+### Commits
+
+- [Refactor] use `es-errors`, so things that only need those do not need `get-intrinsic` [`1582ab2`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/1582ab2eba32ed4415e4d00eebae072b0af9c326)
+- [Tests] ensure test mocks return iterators [`c791d83`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/c791d839602514006c8a6409da3525aa4b80f7e5)
+- [Dev Deps] update `tape` [`d8d9faa`](https://github.com/es-shims/Set.prototype.isSubsetOf/commit/d8d9faa754dfc4ca83233f76d6d7653008c7f34e)
+
 ## [v1.1.1](https://github.com/es-shims/Set.prototype.isSubsetOf/compare/v1.1.0...v1.1.1) - 2023-12-18
 
 ### Commits
