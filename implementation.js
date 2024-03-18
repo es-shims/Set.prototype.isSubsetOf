@@ -4,10 +4,10 @@ var $TypeError = require('es-errors/type');
 
 var $Set = require('es-set/polyfill')();
 
-var Call = require('es-abstract/2023/Call');
+var Call = require('es-abstract/2024/Call');
 var GetSetRecord = require('./aos/GetSetRecord');
 var SetDataSize = require('./aos/SetDataSize');
-var ToBoolean = require('es-abstract/2023/ToBoolean');
+var ToBoolean = require('es-abstract/2024/ToBoolean');
 
 var isSet = require('is-set');
 
