@@ -6,7 +6,6 @@ var $Set = require('es-set/polyfill')();
 
 var Call = require('es-abstract/2024/Call');
 var GetSetRecord = require('./aos/GetSetRecord');
-var SetDataSize = require('./aos/SetDataSize');
 var ToBoolean = require('es-abstract/2024/ToBoolean');
 
 var isSet = require('is-set');
@@ -25,7 +24,7 @@ module.exports = function isSubsetOf(other) {
 
 	var otherRec = GetSetRecord(other); // step 3
 
-	var thisSize = SetDataSize(O); // step 4
+	var thisSize = $setSize(O); // SetDataSize(O.[[SetData]]); // step 4
 
 	if (thisSize > otherRec['[[Size]]']) {
 		return false; // step 5
