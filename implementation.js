@@ -33,7 +33,7 @@ module.exports = function isSubsetOf(other) {
 		var index = 0; // step 6
 		$setForEach(O, function (e) {
 			if (index < thisSize) { // step 7
-				var inOther = ToBoolean(Call(otherRec['[[Has]]'], otherRec['[[Set]]'], [e])); // step 7.c.i
+				var inOther = ToBoolean(Call(otherRec['[[Has]]'], otherRec['[[SetObject]]'], [e])); // step 7.c.i
 				if (!inOther) {
 				// eslint-disable-next-line no-throw-literal
 					throw false; // step 7.c.ii, kinda
